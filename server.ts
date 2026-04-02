@@ -18,6 +18,7 @@ async function start() {
 
   await payload.init({
     secret: process.env.PAYLOAD_SECRET || 'fallback-secret',
+    // @ts-ignore - Vercel build complains about mongoURL, but it's needed for local dev
     mongoURL: process.env.MONGODB_URI,
     express: app,
     onInit: async () => {
