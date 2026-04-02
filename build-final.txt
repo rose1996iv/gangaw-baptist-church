@@ -1,0 +1,90 @@
+﻿
+> gbc@0.1.0 build
+> next build
+
+  Γû▓ Next.js 14.2.35
+  - Environments: .env.local
+
+   Creating an optimized production build ...
+ Γ£ô Compiled successfully
+   Linting and checking validity of types ...
+
+./app/(site)/events/page.tsx
+34:15  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+45:9  Warning: 'regular' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./app/(site)/members/page.tsx
+39:16  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+40:7  Warning: 'isAuthenticated' is assigned a value but never used. Allowed unused vars must match /^_/u.  @typescript-eslint/no-unused-vars
+40:7  Warning: 'isAuthenticated' is never reassigned. Use 'const' instead.  prefer-const
+
+./app/(site)/page.tsx
+96:47  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+100:53  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/(site)/sermons/page.tsx
+29:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./app/api/auth/[...nextauth]/route.ts
+15:20  Warning: 'user' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+15:26  Warning: 'account' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+15:35  Warning: 'profile' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+22:26  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+23:27  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+27:33  Warning: 'profile' is defined but never used. Allowed unused args must match /^_/u.  @typescript-eslint/no-unused-vars
+
+./app/api/prayer/route.ts
+57:17  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/home/FacebookFeed.tsx
+80:25  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+84:35  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+92:26  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./components/home/HeroSection.tsx
+56:11  Warning: Using `<img>` could result in slower LCP and higher bandwidth. Consider using `<Image />` from `next/image` to automatically optimize images. This may incur additional usage or cost from your provider. See: https://nextjs.org/docs/messages/no-img-element  @next/next/no-img-element
+
+./lib/facebook.ts
+64:46  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+69:17  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+./lib/payload-client.ts
+44:17  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+73:17  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+101:12  Warning: Unexpected any. Specify a different type.  @typescript-eslint/no-explicit-any
+
+info  - Need to disable some ESLint rules? Learn more here: https://nextjs.org/docs/basic-features/eslint#disabling-rules
+   Collecting page data ...
+   Generating static pages (0/14) ...
+   Generating static pages (3/14) 
+   Generating static pages (6/14) 
+   Generating static pages (10/14) 
+ Γ£ô Generating static pages (14/14)
+   Finalizing page optimization ...
+   Collecting build traces ...
+
+Route (app)                              Size     First Load JS
+Γöî Γùï /                                    185 B          99.1 kB
+Γö£ Γùï /_not-found                          873 B          88.1 kB
+Γö£ ╞Æ /api/[...payload]                    0 B                0 B
+Γö£ ╞Æ /api/auth/[...nextauth]              0 B                0 B
+Γö£ ╞Æ /api/prayer                          0 B                0 B
+Γö£ ╞Æ /blog                                153 B          87.4 kB
+Γö£ ΓùÅ /blog/[slug]                         153 B          87.4 kB
+Γö£ Γùï /events                              153 B          87.4 kB
+Γö£ Γùï /give                                153 B          87.4 kB
+Γö£ Γùï /live                                2.7 kB           90 kB
+Γö£ Γùï /members                             153 B          87.4 kB
+Γö£ Γùï /robots.txt                          0 B                0 B
+Γö£ ╞Æ /sermons                             170 B          90.4 kB
+Γöö Γùï /sitemap.xml                         0 B                0 B
++ First Load JS shared by all            87.3 kB
+  Γö£ chunks/117-a1e51ed5f702b612.js       31.7 kB
+  Γö£ chunks/fd9d1056-3643f988cff5ee36.js  53.6 kB
+  Γöö other shared chunks (total)          1.89 kB
+
+
+Γùï  (Static)   prerendered as static content
+ΓùÅ  (SSG)      prerendered as static HTML (uses getStaticProps)
+╞Æ  (Dynamic)  server-rendered on demand
+
