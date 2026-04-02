@@ -1,146 +1,98 @@
-﻿# Gangaw Baptist Church Website
+# Gangaw Baptist Church Website (GBC)
 
-A full-stack church website built with **Next.js 14**, **Payload CMS v2**, **Tailwind CSS**, and **MongoDB**.
+A fully-featured, production-ready church website built with **Next.js 14**, **Payload CMS v2**, **Tailwind CSS**, and **MongoDB**.
 
-**Live YouTube Channel:** https://www.youtube.com/@gangawbaptistchurch3957
-
----
-
-## Tech Stack
-
-| Layer | Technology |
-|-------|-----------|
-| Framework | Next.js 14 (App Router, TypeScript) |
-| Styling | Tailwind CSS v3 |
-| CMS | Payload CMS v2 (self-hosted) |
-| Database | MongoDB |
-| Auth | Payload built-in + NextAuth (Facebook Login) |
-| Email | Resend (free tier) |
-| Deployment | Vercel (output: standalone) |
+**Live YouTube Channel:** https://www.youtube.com/@gangawbaptistchurch3957  
+**Official Facebook Page:** https://www.facebook.com/gangawbaptistchurch
 
 ---
 
-## Pages
+## 🛠 Tech Stack
 
-| Route | Description |
-|-------|-------------|
-| / | Homepage — Hero, Sermons, Events, Facebook Feed |
-| /sermons | Sermon archive with YouTube embeds |
-| /live | Live stream + Prayer Request form |
-| /events | Church event calendar |
-| /give | Online giving via PayPal |
-| /blog | News & devotional posts |
-| /members | Member directory (login required) |
-| /admin | Payload CMS admin panel |
-
----
-
-## CMS User Roles
-
-| Role | Permissions |
-|------|------------|
-| dmin | Full access to all collections + user management |
-| pastor | Create/edit Sermons, Events, Posts |
-| editor | Create/edit Posts only |
-| member | Read-only access to member directory |
+- **Frontend:** Next.js 14 (App Router, TypeScript), Tailwind CSS
+- **Backend & CMS:** Payload CMS v2 (Self-hosted via Express Custom Server)
+- **Database:** MongoDB Atlas
+- **Integrations:** 
+  - Facebook Graph API (Live Feed)
+  - YouTube API (Sermons & Live Stream)
+  - NextAuth (Facebook Login for Members)
+  - Resend (Prayer Request Emails)
+- **Deployment:** Vercel
 
 ---
 
-## Quick Start
+## 📝 How Content is Managed (CMS)
 
-### 1. Clone & Install
-`ash
-git clone <your-repo-url>
-cd gbc
-npm install
-`
+This website uses **Payload CMS** to manage content dynamically. Once deployed, you do not need to touch the code to update the website's content.
 
-### 2. Configure Environment
-`ash
-cp .env.example .env.local
-# Edit .env.local with your real values:
-# - MONGODB_URI (MongoDB Atlas or local)
-# - PAYLOAD_SECRET (min 32 chars)
-# - NEXTAUTH_SECRET
-# - Facebook App credentials (optional)
-# - Resend API key (optional)
-`
+### Using the Admin Panel
 
-### 3. Run Development Server
-`ash
-npm run dev
-# Open http://localhost:3000
-# Admin panel: http://localhost:3000/admin
-`
+The admin panel is where you update your website's data.
+**Access it at:** `http://localhost:3000/admin` (Local only, see why below).
 
-### 4. Create First Admin User
-Visit http://localhost:3000/admin and create your first admin account.
+You can add, edit, or delete:
+1. **Sermons:** Enter the Title, Preacher, Date, and YouTube Video URL. It will automatically update the Homepage and Sermons page.
+2. **Events:** Create church events, set dates, times, and descriptions. They will appear on the Homepage and Events calendar.
+3. **Blog / News:** Write announcements or devotional articles.
+4. **Members:** Manage church directory members, their roles, and photos.
+5. **Media Library:** Upload images and files to use across the site.
+
+> **Can I update existing content?**  
+> YES! Anything you add or edit in the Admin Panel will instantly reflect on the main website.
 
 ---
 
-## Deployment to Vercel
+## 🚀 Deployment to Vercel
 
-### Prerequisites
-- MongoDB Atlas cluster (free tier works)
-- GitHub repository
+### Step 1: Push to GitHub
+1. Commit all your latest changes.
+2. Push to your repository: `https://github.com/rose1996iv/gangaw-baptist-church.git`
 
-### Steps
-1. Push to GitHub
-2. Import project on [Vercel](https://vercel.com)
-3. Add all environment variables from .env.example
-4. Deploy — Vercel auto-detects Next.js
+### Step 2: Vercel Setup
+1. Go to [Vercel](https://vercel.com) and click **Import Project**.
+2. Select the `gangaw-baptist-church` repository.
+3. Open the **Environment Variables** section and add everything from your local `.env.local` file.
+   - *Crucial:* Set `MONGODB_URI` using the **Standard (non-SRV)** connection string.
+4. Click **Deploy**.
 
-> **Note:** Payload CMS admin panel works on Vercel's serverless functions.
-> For production, ensure NEXTAUTH_URL is set to your Vercel domain.
-
----
-
-## Facebook Integration
-
-Set these in .env.local to enable the Facebook feed widget:
-`
-FACEBOOK_PAGE_ID=your_page_id
-FACEBOOK_ACCESS_TOKEN=your_page_access_token
-NEXT_PUBLIC_FACEBOOK_APP_ID=your_app_id
-`
-
-The widget shows a graceful placeholder if credentials are not set.
+> ⚠️ **IMPORTANT NOTE FOR VERCEL DEPLOYMENT:**
+> Next.js hosts perfectly on Vercel. However, Payload CMS v2 requires a custom Express server (`server.ts`) which **Vercel's serverless environment does not support**.
+> 
+> **How this works in practice:**
+> - Your **Public Website** (Next.js) will run perfectly on Vercel, fetching data directly from your MongoDB Atlas database.
+> - To **Manage Content**, you must run the admin panel locally on your computer using `npm run dev:full`. When you add a sermon or event locally, it saves to MongoDB, and your live Vercel website will instantly show it!
 
 ---
 
-## YouTube Channel
+## 💻 Local Development
 
-The site uses **Gangaw Baptist Church**'s official YouTube channel:
-- Channel: @gangawbaptistchurch3957
-- Channel ID: UC3eJ_77bADN03SZ6QNCYPel
+### Running the App
+To start **both** the Website and the Admin Panel:
+```bash
+npm run dev:full
+```
+- Website: `http://localhost:3000`
+- Admin Panel: `http://localhost:3000/admin`
 
-Update NEXT_PUBLIC_YOUTUBE_CHANNEL_ID and NEXT_PUBLIC_YOUTUBE_LIVE_VIDEO_ID in .env.local.
+*(If you only need to work on the Next.js frontend, you can use `npm run dev`)*
+
+### Environment Variables
+Duplicate `.env.example` to `.env.local` and configure your keys, specifically your `MONGODB_URI` and `PAYLOAD_SECRET`.
 
 ---
 
-## Project Structure
+## 🌐 API Integrations
 
-`
-app/
-  (site)/          # Public pages
-  api/             # API routes (Payload, NextAuth, Prayer)
-components/
-  layout/          # Navbar, Footer
-  home/            # HeroSection, FacebookFeed, UpcomingEvents
-  sermons/         # SermonCard
-  ui/              # Button, Card
-lib/
-  facebook.ts      # Facebook Graph API client
-  payload-client.ts# Payload REST client
-payload/
-  payload.config.ts
-  collections/     # Users, Sermons, Events, Posts, Members
-public/
-  church-hero.png  # Hero background image
-`
+### Facebook Feed
+The homepage automatically pulls the latest posts from the official GBC Facebook page.
+Required `.env.local` keys:
+- `FACEBOOK_PAGE_ID`
+- `FACEBOOK_ACCESS_TOKEN` (Long-lived Page Access Token)
+
+### YouTube Embeds
+Sermon videos use an optimized click-to-play iFrame to ensure fast page load speeds. Update the `NEXT_PUBLIC_YOUTUBE_CHANNEL_ID` in `.env.local` to link the main channel.
 
 ---
 
 ## License
-
 MIT © Gangaw Baptist Church
