@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "dev:full": "tsx server.ts",
-    "start:full": "NODE_ENV=production node dist/server.js"
+    "start:full": "NODE_ENV=production npx tsx server.ts"
   },
   "dependencies": {
     "@payloadcms/bundler-webpack": "^1.0.7",

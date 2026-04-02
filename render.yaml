@@ -1,0 +1,23 @@
+services:
+  - type: web
+    name: gangaw-baptist-church
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start:full
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: NEXT_PUBLIC_YOUTUBE_CHANNEL_ID
+        value: UC3eJ_77bADN03SZ6QNCYPel
+      - key: MONGODB_URI
+        sync: false
+      - key: PAYLOAD_SECRET
+        sync: false
+      - key: NEXTAUTH_SECRET
+        sync: false
+      - key: NEXTAUTH_URL
+        sync: false
+      - key: FACEBOOK_PAGE_ID
+        sync: false
+      - key: FACEBOOK_ACCESS_TOKEN
+        sync: false
