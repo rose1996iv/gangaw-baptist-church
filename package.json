@@ -4,16 +4,18 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run build:payload && next build",
     "start": "next start",
     "lint": "next lint",
     "dev:full": "tsx server.ts",
-    "start:full": "NODE_ENV=production npx tsx server.ts"
+    "start:full": "NODE_ENV=production npx tsx server.ts",
+    "build:payload": "cross-env PAYLOAD_CONFIG_PATH=payload/payload.config.ts payload build"
   },
   "dependencies": {
     "@payloadcms/bundler-webpack": "^1.0.7",
     "@payloadcms/db-mongodb": "^1.7.5",
     "@payloadcms/richtext-slate": "^1.5.2",
+    "cross-env": "^10.1.0",
     "mongoose": "^9.3.3",
     "next": "14.2.35",
     "next-auth": "^4.24.13",
