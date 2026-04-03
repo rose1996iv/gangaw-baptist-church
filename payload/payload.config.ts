@@ -11,7 +11,7 @@ import Posts from './collections/Posts'
 import Members from './collections/Members'
 
 export default buildConfig({
-  serverURL: process.env.NEXTAUTH_URL || 'http://localhost:3000',
+  serverURL: process.env.NEXTAUTH_URL || 'https://gangaw-baptist-church.onrender.com',
   admin: {
     user: Users.slug,
     bundler: webpackBundler(),
