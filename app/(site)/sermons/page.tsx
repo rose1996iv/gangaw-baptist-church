@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Watch and listen to our latest sermons, messages, and Bible teachings from Gangaw Baptist Church (GBC).',
 }
 
-export const revalidate = 300
+export const revalidate = 0
 
 const PLACEHOLDER_SERMONS = Array.from({ length: 6 }, (_, i) => ({
   id: `ph${i}`,

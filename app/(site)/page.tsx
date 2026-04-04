@@ -11,8 +11,8 @@ export const metadata: Metadata = {
   description: `${process.env.NEXT_PUBLIC_CHURCH_TAGLINE || 'A Community of Faith, Hope & Love'}. Join us for worship, sermons, and community events.`,
 }
 
-// Revalidate every 5 minutes
-export const revalidate = 300
+// Revalidate immediately to show latest posts
+export const revalidate = 0
 
 // Placeholder sermons for initial display
 const PLACEHOLDER_SERMONS = [

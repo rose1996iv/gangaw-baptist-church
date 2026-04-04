@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Stay up to date with upcoming events, services, and gatherings at Gangaw Baptist Church.',
 }
 
-export const revalidate = 300
+export const revalidate = 0
 
 const PLACEHOLDER_EVENTS = (() => {
   const base = Date.now()

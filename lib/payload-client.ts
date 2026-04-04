@@ -50,7 +50,7 @@ export interface Sermon {
 export async function getSermons(limit = 10, page = 1): Promise<PaginatedResult<Sermon>> {
   return fetchPayload<PaginatedResult<Sermon>>(
     `/sermons?limit=${limit}&page=${page}&sort=-date`,
-    { next: { revalidate: 300 } }
+    { next: { revalidate: 0 } }
   )
 }
 
@@ -79,7 +79,7 @@ export async function getEvents(limit = 10, page = 1): Promise<PaginatedResult<C
   const now = new Date().toISOString()
   return fetchPayload<PaginatedResult<ChurchEvent>>(
     `/events?where[date][greater_than]=${now}&limit=${limit}&page=${page}&sort=date`,
-    { next: { revalidate: 300 } }
+    { next: { revalidate: 0 } }
   )
 }
 
@@ -109,7 +109,7 @@ export interface BlogPost {
 export async function getPosts(limit = 6, page = 1): Promise<PaginatedResult<BlogPost>> {
   return fetchPayload<PaginatedResult<BlogPost>>(
     `/posts?where[status][equals]=published&limit=${limit}&page=${page}&sort=-publishedAt&depth=1`,
-    { next: { revalidate: 300 } }
+    { next: { revalidate: 0 } }
   )
 }
 
@@ -117,7 +117,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
   try {
     const result = await fetchPayload<PaginatedResult<BlogPost>>(
       `/posts?where[slug][equals]=${slug}&where[status][equals]=published&depth=1`,
-      { next: { revalidate: 300 } }
+      { next: { revalidate: 0 } }
     )
     return result.docs[0] ?? null
   } catch {
@@ -128,7 +128,7 @@ export async function getPostBySlug(slug: string): Promise<BlogPost | null> {
 export async function getAllPostSlugs(): Promise<string[]> {
   const result = await fetchPayload<PaginatedResult<BlogPost>>(
     `/posts?where[status][equals]=published&limit=100&depth=0`,
-    { next: { revalidate: 3600 } }
+    { next: { revalidate: 0 } }
   )
   return result.docs.map((p) => p.slug)
 }
@@ -149,7 +149,7 @@ export async function getPublicMembers(limit = 50): Promise<Member[]> {
   try {
     const result = await fetchPayload<PaginatedResult<Member>>(
       `/members?where[isPublic][equals]=true&limit=${limit}&sort=name`,
-      { next: { revalidate: 600 } }
+      { next: { revalidate: 0 } }
     )
     return result?.docs ?? []
   } catch {

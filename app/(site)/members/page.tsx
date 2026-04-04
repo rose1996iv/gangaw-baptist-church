@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   description: 'Connect with the Gangaw Baptist Church community.',
 }
 
-export const revalidate = 600
+export const revalidate = 0
 
 const PLACEHOLDER_MEMBERS = [
   { id: 'm1', name: 'GBC Lead Pastor', role: 'pastor', bio: 'Lead Pastor of Gangaw Baptist Church, serving the congregation with dedication.', avatar: '', isPublic: true },

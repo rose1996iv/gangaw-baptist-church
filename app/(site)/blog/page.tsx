@@ -7,7 +7,7 @@ export const metadata: Metadata = {
   description: 'Read articles, devotional posts, and ministry updates from Gangaw Baptist Church.',
 }
 
-export const revalidate = 300
+export const revalidate = 0
 
 const PLACEHOLDER_POSTS = Array.from({ length: 6 }, (_, i) => ({
   id: `ph${i}`,
