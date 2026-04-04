@@ -48,6 +48,24 @@ const Posts: CollectionConfig = {
       unique: true,
     },
     {
+      name: 'coverImage',
+      type: 'upload',
+      relationTo: 'media',
+      admin: {
+        position: 'sidebar',
+        description: 'Featured image for the post',
+      },
+    },
+    {
+      name: 'excerpt',
+      type: 'textarea',
+      admin: {
+        position: 'sidebar',
+        description: 'Short summary for the blog listing',
+      },
+      maxLength: 300,
+    },
+    {
       name: 'content',
       type: 'richText',
     },

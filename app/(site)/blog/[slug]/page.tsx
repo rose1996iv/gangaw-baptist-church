@@ -1,55 +1,33 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getPostBySlug, getAllPostSlugs } from '@/lib/payload-client'
+import { getPostBySlug } from '@/lib/payload-client'
+import { RichText } from '@/components/ui/RichText'
+
+export const dynamic = 'force-dynamic'
 
 interface Props {
   params: { slug: string }
-}
-
-export async function generateStaticParams() {
-  try {
-    const slugs = await getAllPostSlugs()
-    return slugs.map((slug) => ({ slug }))
-  } catch {
-    return []
-  }
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   try {
     const post = await getPostBySlug(params.slug)
     if (!post) return { title: 'Post Not Found' }
+    
+    const imageUrl = typeof post.coverImage === 'string' ? post.coverImage : post.coverImage?.url
+    
     return {
       title: post.title,
       description: post.excerpt || `Read "${post.title}" on our church blog.`,
       openGraph: {
         title: post.title,
         description: post.excerpt,
-        images: post.coverImage ? [post.coverImage] : [],
+        images: imageUrl ? [imageUrl] : [],
       },
     }
   } catch {
     return { title: 'Blog Post' }
   }
-}
-
-type SlateNode = { text?: string; children?: SlateNode[] }
-
-function renderRichText(content: SlateNode | SlateNode[] | string | null | undefined): string {
-  if (!content) return ''
-  if (typeof content === 'string') return content
-  // Basic Slate richtext → plain text extraction
-  if (Array.isArray(content)) {
-    return content
-      .map((node: SlateNode) => {
-        if (node.text !== undefined) return node.text
-        if (node.children) return renderRichText(node.children)
-        return ''
-      })
-      .join(' ')
-  }
-  if (content.children) return renderRichText(content.children)
-  return ''
 }
 
 export default async function BlogPostPage({ params }: Props) {
@@ -62,7 +40,6 @@ export default async function BlogPostPage({ params }: Props) {
 
   if (!post) notFound()
 
-  const plainContent = renderRichText(post.content)
   const formattedDate = post.publishedAt
     ? new Date(post.publishedAt).toLocaleDateString('en-US', {
         year: 'numeric',
@@ -71,14 +48,16 @@ export default async function BlogPostPage({ params }: Props) {
       })
     : ''
 
+  const imageUrl = typeof post.coverImage === 'string' ? post.coverImage : (post.coverImage as any)?.url
+
   return (
     <div className="min-h-screen">
       {/* Cover image */}
-      {post.coverImage && (
-        <div className="w-full h-64 sm:h-80 overflow-hidden">
+      {imageUrl && (
+        <div className="w-full h-64 sm:h-80 lg:h-96 overflow-hidden bg-gray-100">
           {/* eslint-disable-next-line @next/next/no-img-element */}
           <img
-            src={post.coverImage}
+            src={imageUrl}
             alt={post.title}
             className="w-full h-full object-cover"
           />
@@ -122,9 +101,9 @@ export default async function BlogPostPage({ params }: Props) {
         </div>
 
         {/* Content */}
-        <div className="prose prose-navy prose-lg max-w-none text-gray-700 leading-relaxed">
-          {plainContent ? (
-            <p className="whitespace-pre-wrap">{plainContent}</p>
+        <div className="prose prose-navy prose-lg max-w-none">
+          {post.content ? (
+            <RichText content={post.content} />
           ) : (
             <p className="text-gray-400 italic">This post has no content yet.</p>
           )}

@@ -74,7 +74,7 @@ export default async function BlogPage({
                 <div className="aspect-[16/9] overflow-hidden bg-gray-100">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
                   <img
-                    src={post.coverImage}
+                    src={typeof post.coverImage === 'string' ? post.coverImage : (post.coverImage as any)?.url}
                     alt={post.title}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />

@@ -100,7 +100,7 @@ export interface BlogPost {
   excerpt?: string
   content: any
   author?: { name: string }
-  coverImage?: string
+  coverImage?: string | { url: string; alt?: string }
   tags?: { tag: string }[]
   status: 'draft' | 'published'
   publishedAt?: string

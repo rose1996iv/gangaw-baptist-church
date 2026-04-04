@@ -9,6 +9,7 @@ import Sermons from './collections/Sermons'
 import Events from './collections/Events'
 import Posts from './collections/Posts'
 import Members from './collections/Members'
+import Media from './collections/Media'
 
 export default buildConfig({
   serverURL: process.env.NEXTAUTH_URL || 'https://gangaw-baptist-church.onrender.com',
@@ -25,7 +26,7 @@ export default buildConfig({
   db: mongooseAdapter({
     url: process.env.MONGODB_URI || 'mongodb://localhost:27017/gbc',
   }),
-  collections: [Users, Sermons, Events, Posts, Members],
+  collections: [Users, Sermons, Events, Posts, Members, Media],
   typescript: {
     outputFile: path.resolve(__dirname, 'payload-types.ts'),
   },
