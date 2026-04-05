@@ -33,6 +33,15 @@ function formatDate(d: string) {
   return new Date(d).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
+function extractPlainText(content: any): string {
+  if (!content) return ''
+  if (typeof content === 'string') return content
+  if (Array.isArray(content)) return content.map(extractPlainText).join(' ')
+  if (content.text) return content.text
+  if (content.children) return extractPlainText(content.children)
+  return ''
+}
+
 export default async function BlogPage({
   searchParams,
 }: {
@@ -97,9 +106,9 @@ export default async function BlogPage({
                 </h2>
 
                 {/* Excerpt */}
-                {post.excerpt && (
-                  <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 flex-1">{post.excerpt}</p>
-                )}
+                <p className="text-sm text-gray-600 leading-relaxed line-clamp-3 flex-1">
+                  {post.excerpt || extractPlainText(post.content).trim().substring(0, 160) || 'Click to read more...'}
+                </p>
 
                 {/* Meta + ReadMore */}
                 <div className="flex items-center justify-between mt-auto pt-3 border-t border-gray-50">

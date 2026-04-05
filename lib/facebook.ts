@@ -57,7 +57,7 @@ export async function getFacebookFeed(
   try {
     const fields = 'id,message,story,full_picture,created_time,permalink_url'
     const url = `https://graph.facebook.com/v18.0/${id}/posts?fields=${fields}&limit=${limit}&access_token=${token}`
-    const res = await fetch(url, { next: { revalidate: 3600 } }) // cache 1 hour
+    const res = await fetch(url, { next: { revalidate: 60 } }) // cache 1 min
 
     if (!res.ok) {
       const errData = await res.json().catch(() => ({}))
